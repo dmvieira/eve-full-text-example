@@ -16,12 +16,14 @@ all:
 run:
 	@echo 'Running MongoDB...'
 	- killall mongod
-	mongod --bind_ip $(MONGO_HOST) --port $(MONGO_PORT) --dbpath $(MONGO_PATH)/data/db/ --quiet
+	mongod --bind_ip $(MONGO_HOST) --port $(MONGO_PORT) --dbpath $(MONGO_PATH)/data/db/ --quiet > mongod.log 2>&1 &
+	@echo 'Running Eve Api...'
+	$(MAKE) run -C api
 
 # Runs MongoDB and populate database scrapping Hotel Urbano
 populate:
 	@echo 'Running mongo for populate'
-	$(MAKE) run &
+	$(MAKE) run
 	$(MAKE) run -C populate	
 
 test:

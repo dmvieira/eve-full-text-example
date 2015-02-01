@@ -9,5 +9,5 @@ all:
 
 # Start Eve api
 run:
-	python $(ROOT_DIR)/api/run.py
+	python $(ROOT_DIR)/api/run.py > api.log 2>&1
 	@echo 'Eve api running!'

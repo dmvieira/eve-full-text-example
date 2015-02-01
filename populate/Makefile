@@ -9,5 +9,5 @@ all:
 
 # Start populate database action
 run:
-	python $(ROOT_DIR)/populate/run.py
+	python $(ROOT_DIR)/populate/run.py > populate.log 2>&1
 	@echo 'Database populated!'
