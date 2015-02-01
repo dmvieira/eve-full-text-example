@@ -1,0 +1,73 @@
+#!/usr/bin/env bash
+
+# Bash script for configuration at Ubuntu amd64 and Mac systems.
+# Should work with all Linux distros. Here it installs curl if needs,
+# installs mongodb database, pip requirements, populates mongodb with hotels
+# and adds environment variables for db connection if needs.
+# Each process will be described below.
+
+# Easy version control for MongoDB
+MONGODB_VERSION="x86_64-2.6.7";
+MY_PATH="$(pwd)";
+
+# Validates if is Ubuntu or Mac. 
+# It should work for all linux too, but it needs manual intervention.
+if [ $(uname -s) == 'Linux' ]; then
+    MONGODB_URL="http://downloads.mongodb.org/linux/mongodb-linux-${MONGODB_VERSION}.tgz";
+    if ! [ "$(which curl)" ] && ! [ "$(uname -a | grep Ubuntu)" ]; then        
+        echo 'Please install curl by hand for other linux. Only Ubuntu is full supported.';
+        exit 0;
+    elif ! [ "$(which curl)" ]; then
+        # Ubuntu don't have curl by default, so we should install it.
+        echo 'Installing curl in your Ubuntu';
+        sudo apt-get install curl -y;
+    fi
+
+elif [ $(uname -s) == 'Darwin' ]; then
+    MONGODB_URL="http://downloads.mongodb.org/osx/mongodb-osx-${MONGODB_VERSION}.tgz";
+else
+    echo 'Sorry, but your system is not supported by installer. Just Mac and Ubuntu are supported.';
+    exit 0;
+fi
+
+# Now start mongodb installation and configuration.
+echo 'Reseting and Downloading MongoDB';
+rm -rf mongodb && rm -f mongodb.tgz || echo "First MongoDB install";
+curl -L $MONGODB_URL -o mongodb.tgz;
+echo 'Extracting MongoDB and configuring it';
+tar -zxvf mongodb.tgz;
+mv mongodb-* mongodb;
+rm -f mongodb.tgz;
+
+# Adding mongodb to path and env vars
+echo "export PATH=${MY_PATH}/mongodb/bin:$PATH" > env_vars.mk;
+echo "export MONGO_PATH=${MY_PATH}/mongodb" >> env_vars.mk;
+
+# Adding db data folder
+mkdir -p ${MY_PATH}/mongodb/data/db/;
+
+# Reading mongodb env vars. It's only supporting localhost
+read -p 'Set MongoDB hostname (default: localhost): ' mongodb_host;
+mongodb_host=${mongodb_host:-localhost};
+read -p 'Set MongoDB port (default: 27017): ' mongodb_port;
+mongodb_port=${mongodb_port:-27017};
+read -p 'Set MongoDB username (default: mongouser): ' mongodb_user;
+mongodb_user=${mongodb_user:-mongouser};
+read -p 'Set MongoDB password (default: 123): ' mongodb_pass;
+mongodb_pass=${mongodb_pass:-123};
+read -p 'Set MongoDB database name (default: hu): ' mongodb_db;
+mongodb_db=${mongodb_db:-hu};
+
+# Adding env vars to file
+echo "export MONGO_HOST=${mongodb_host}" >> env_vars.mk;
+echo "export MONGO_PORT=${mongodb_port}" >> env_vars.mk;
+echo "export MONGO_USERNAME=${mongodb_user}" >> env_vars.mk;
+echo "export MONGO_PASSWORD=${mongodb_pass}" >> env_vars.mk;
+echo "export MONGO_DBNAME=${mongodb_db}" >> env_vars.mk;
+
+# Installing pip requirements. You should use a virtualenv
+echo "Installing pip requirements"
+pip install -r requirements.txt
+
+# Populating database
+make populate;
