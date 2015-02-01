@@ -91,4 +91,5 @@ echo "Installing pip requirements"
 pip install -r requirements.txt
 
 # Populating database
+echo "Populating database... Please wait"
 make populate;
