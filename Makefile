@@ -21,9 +21,8 @@ run:
 # Runs MongoDB and populate database scrapping Hotel Urbano
 populate:
 	@echo 'Running mongo for populate'
-	$(MAKE) run & 
-	python $(ROOT_DIR)/config/populate.py
-	@echo 'Database populated!'
+	$(MAKE) run &
+	$(MAKE) run -C populate	
 
 test:
 	@echo 'doing'
