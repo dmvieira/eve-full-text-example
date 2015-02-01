@@ -1,5 +1,9 @@
 #!/usr/bin/env python
 
+""" Here is defined database schema for api with validations restrictions
+that should be used only for post, put and patch methods.
+"""
+
 schema = {
     'name': {
         'type': 'string',

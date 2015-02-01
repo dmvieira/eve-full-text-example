@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+# Here comes settings for database connection and api domain.
+
 import os
 from database import schema
 
