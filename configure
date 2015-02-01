@@ -47,16 +47,37 @@ echo "export MONGO_PATH=${MY_PATH}/mongodb" >> env_vars.mk;
 mkdir -p ${MY_PATH}/mongodb/data/db/;
 
 # Reading mongodb env vars. It's only supporting localhost
-read -p 'Set MongoDB hostname (default: localhost): ' mongodb_host;
-mongodb_host=${mongodb_host:-localhost};
-read -p 'Set MongoDB port (default: 27017): ' mongodb_port;
-mongodb_port=${mongodb_port:-27017};
-read -p 'Set MongoDB username (default: mongouser): ' mongodb_user;
-mongodb_user=${mongodb_user:-mongouser};
-read -p 'Set MongoDB password (default: 123): ' mongodb_pass;
-mongodb_pass=${mongodb_pass:-123};
-read -p 'Set MongoDB database name (default: hu): ' mongodb_db;
-mongodb_db=${mongodb_db:-hu};
+# If variable is already setted, then don't ask.
+if [ $MONGO_HOST ]; then
+    mongodb_host=$MONGO_HOST;
+else
+    read -p 'Set MongoDB hostname (default: localhost): ' mongodb_host;
+    mongodb_host=${mongodb_host:-localhost};
+fi
+if [ $MONGO_PORT ]; then
+    mongodb_port=$MONGO_PORT;
+else
+    read -p 'Set MongoDB port (default: 27017): ' mongodb_port;
+    mongodb_port=${mongodb_port:-27017};
+fi
+if [ $MONGO_USERNAME ]; then
+    mongodb_user=$MONGO_USERNAME;
+else
+    read -p 'Set MongoDB username (default: mongouser): ' mongodb_user;
+    mongodb_user=${mongodb_user:-mongouser};
+fi
+if [ $MONGO_PASSWORD ]; then
+    mongodb_pass=$MONGO_PASSWORD;
+else
+    read -p 'Set MongoDB password (default: 123): ' mongodb_pass;
+    mongodb_pass=${mongodb_pass:-123};
+fi
+if [ $MONGO_DBNAME ]; then
+    mongodb_db=$MONGO_DBNAME;
+else
+    read -p 'Set MongoDB database name (default: hu): ' mongodb_db;
+    mongodb_db=${mongodb_db:-hu};
+fi
 
 # Adding env vars to file
 echo "export MONGO_HOST=${mongodb_host}" >> env_vars.mk;

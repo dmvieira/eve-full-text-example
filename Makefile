@@ -12,10 +12,15 @@ all:
 	$(MAKE) run
 
 run:
-	@echo 'doing'
+	@echo 'Running MongoDB...'
+	- killall mongod
+	mongod --bind_ip $(MONGO_HOST) --port $(MONGO_PORT) --dbpath $(MONGO_PATH)/data/db/ --quiet
 
 populate:
-	@echo 'doing'
+	@echo 'Running mongo for populate'
+	$(MAKE) run & 
+	python $(ROOT_DIR)/config/populate.py
+	@echo 'Database populated!'
 
 test:
 	@echo 'doing'
