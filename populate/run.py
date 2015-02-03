@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
-"""
-This file enable database populate using HU scrapper.
+""" This file enable database populate using HU scrapper.
 Here it connects to HU website and import some items to
 mongodb database.
 """

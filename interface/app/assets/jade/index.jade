@@ -5,12 +5,11 @@
 | {{super()}}
 link(rel="stylesheet", href="{{url_for('.static', filename='css/style.css')}}")
 | {% endblock %}
-| {% block content %}
 | {% block scripts %}
-script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js")
-script(src="{{url_for('.static', filename='js/script.js')}}")
 | {{super()}}
+script(src="{{url_for('.static', filename='js/script.js')}}")
 | {% endblock %}
+| {% block content %}
 div.container
     div.col-xs-12.text-center
         h1 Search Interface for Hotels
@@ -18,9 +17,9 @@ div.container
         form(role='form')
             div.form-group.col-xs-12
                 div.col-xs-10
-                    input.form-control(name='search_input',
-                                       placeholder='Digite a cidade de destino',
-                                       type='text')
+                    input#search-input.form-control(name='search_input',
+                                                    placeholder='Digite a cidade de destino',
+                                                    type='text')
                 div.col-xs-2
                     button.btn.btn-default.glyphicon.glyphicon-search(type='submit')
 | {% endblock %}
