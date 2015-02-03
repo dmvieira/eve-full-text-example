@@ -1,14 +1,28 @@
-| {% extends "bootstrap/base.html"; %}
-| {% import "bootstrap/fixes.html"; as fixes %}
+| {% extends "bootstrap/base.html" %}
+| {% import "bootstrap/fixes.html" as fixes %}
 | {% block title %}Search Interface{% endblock %}
+| {% block styles %}
+| {{super()}}
+link(rel="stylesheet", href="{{url_for('.static', filename='css/style.css')}}")
+| {% endblock %}
 | {% block content %}
+| {% block scripts %}
+script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js")
+script(src="{{url_for('.static', filename='js/script.js')}}")
+| {{super()}}
+| {% endblock %}
 div.container
-  h1 Search Interface for Hotels
-  |   
-  form.form.form-inline(role='form')
-    input.form-control(name='search_input', placeholder='Digite a cidade de destino', type='text')
-    |       
-    button.btn.btn-default.glyphicon.glyphicon-search(type='submit')
+    div.col-xs-12.text-center
+        h1 Search Interface for Hotels
+    div#search-form.col-sm-6.col-sm-offset-3.col-xs-12.col-xs-offset-0
+        form(role='form')
+            div.form-group.col-xs-12
+                div.col-xs-10
+                    input.form-control(name='search_input',
+                                       placeholder='Digite a cidade de destino',
+                                       type='text')
+                div.col-xs-2
+                    button.btn.btn-default.glyphicon.glyphicon-search(type='submit')
 | {% endblock %}
 | {% block head %}
 | {{super()}}

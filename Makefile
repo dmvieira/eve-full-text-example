@@ -1,12 +1,12 @@
 # Top-level Makefile for eve search example.
-# Populate database, run apps, test code and uninstall.
+# Populate database, run apps, test code, compile jade and scss and uninstall.
 
 ROOT_DIR = $(abspath ./)
 export ROOT_DIR
 
 include env_vars.mk
 
-.PHONY: all run uninstall test populate
+.PHONY: all run uninstall test populate compile
 
 # If you call make it just calls make run
 all:
@@ -35,6 +35,10 @@ populate:
 
 test:
 	@echo 'doing'
+
+# Compiles interface scss and jade
+compile:
+	$(MAKE) compile -C interface
 
 # Remove MongoDB directory and uninstall all things
 uninstall:
