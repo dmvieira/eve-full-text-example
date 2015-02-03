@@ -1,0 +1,17 @@
+| {% extends "bootstrap/base.html"; %}
+| {% import "bootstrap/fixes.html"; as fixes %}
+| {% block title %}Search Interface{% endblock %}
+| {% block content %}
+div.container
+  h1 Search Interface for Hotels
+  |   
+  form.form.form-inline(role='form')
+    input.form-control(name='search_input', placeholder='Digite a cidade de destino', type='text')
+    |       
+    button.btn.btn-default.glyphicon.glyphicon-search(type='submit')
+| {% endblock %}
+| {% block head %}
+| {{super()}}
+| {{fixes.ie8()}}
+| {% endblock %}
+
