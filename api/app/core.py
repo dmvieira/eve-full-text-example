@@ -19,6 +19,7 @@ api = restful.Api(app)
 # Enable CORS
 cors = cors.CORS(app)
 
+
 class Home(restful.Resource):
     """ Home resource to help users with a simple 'how to use'. """
     def get(self):
