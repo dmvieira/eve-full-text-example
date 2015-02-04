@@ -8,5 +8,5 @@ from app import app
 
 
 if __name__ == '__main__':
-    app.run(debug=True,
+    app.run(debug=os.environ.get('DEVELOP_ENV', True),
             port=int(os.environ.get('API_PORT')))
