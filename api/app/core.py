@@ -6,15 +6,19 @@ mapping and actions.
 """
 
 import json
+import re
 from bson import json_util
 from flask import request
 from flask.ext import restful
+from flask.ext.cors import CORS
 from model import hotel
 from app import app
 
 # Using Flask api resource
 api = restful.Api(app)
 
+# Enable CORS
+cors = CORS(app)
 
 class Home(restful.Resource):
     """ Home resource to help users with a simple 'how to use'. """
@@ -40,12 +44,13 @@ class City(restful.Resource):
         result = dict(ok=1.0, result=[])
         if name:
             aggregate = [
-                {'$match': {'city': {'$regex': "^%s" % name}}},
+                {'$match': {'city': {'$regex': re.compile("^%s" % name,
+                                                          re.IGNORECASE)}}},
                 {'$group': {'_id': "$city"}}
             ]
             result = hotel.aggregate(aggregate)
 
-        return json.dumps(result, default=json_util.default)
+        return json.dumps(result['result'], default=json_util.default)
 
 # Mapping url to City
 api.add_resource(City, '/city')

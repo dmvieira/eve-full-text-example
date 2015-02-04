@@ -2,16 +2,12 @@
 
 $(function() {
 
-    $("#search-input").autocomplete({
-        serviceUrl: city_url,
-        paramName: 'name',
-        transformResult: function(response) {
-            return {
-                suggestions: $.map(response.myData, function(dataItem) {
-                    return { value: dataItem['_id'], data: dataItem['_id'] };
-                })
-            };
-        }
-
+    $("#search-input").magicSuggest({
+        data: city_url,
+        valueField: '_id',
+        displayField: '_id',
+        mode: 'remote',
+        method: 'get',
+        queryParam: 'name'
     });
 });

@@ -10,7 +10,7 @@ script.
     var city_url = '{{ city_url }}';
     var hotel_url = '{{ hotel_url }}';
 | {{super()}}
-script(src="{{url_for('.static', filename='js/jquery.autocomplete.min.js')}}")
+script(src="{{url_for('.static', filename='js/magicsuggest-min.js')}}")
 script(src="{{url_for('.static', filename='js/script.js')}}")
 | {% endblock %}
 | {% block content %}
