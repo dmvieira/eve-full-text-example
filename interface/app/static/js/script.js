@@ -21,21 +21,14 @@ $(function() {
 
     // Monitoring search-input for each keyup
     // It's a simple autocomplete made because I had errors with mongodb _id
-    $("#search-input").keyup(function(){
-        $.ajax({
+    $("#search-input").keyup(function() {
+        $.getJSON(city_url + '?name=' + $(this).val(), function (data) {
 
-            url: city_url + '?name='+$(this).val()
+            $.each(data['result'], function (key, val) {
+                $('#search-suggestions').html($('#search-suggestions').html() + gen_new_suggestion(val._id));
 
-        })
-            .done(function( data ) {
-                var objects = JSON.parse(data);
-                $('#search-suggestions').html('');
-                for (i = 0; i < objects.length; i++){
-                    // add suggestions to html
-                    $('#search-suggestions').html($('#search-suggestions').html()+gen_new_suggestion(objects[i]._id));
-                }
-                $('#search-suggestions').html($('#search-suggestions').html()+'</ul>');
             });
+        });
     });
 
     // Monitoring each suggestion for click event.
@@ -57,6 +50,7 @@ $(function() {
   .done(function( data ) {
       var objects = JSON.parse(data);
       $('#search-results').html('<h1>Results for '+$("#search-input").val()+'</h1>');
+      console.log(objects);
       for (i = 0; i < objects.length; i++){
           $('#search-results').html($('#search-results').html()+gen_new_result(objects[i]));
       }

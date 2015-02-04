@@ -21,7 +21,7 @@ database_restart:
 # Runs database, api and interface
 run:
 	$(MAKE) database_restart &
-	@echo 'Running Eve Api...'
+	@echo 'Running Api...'
 	$(MAKE) run -C api &
 	@echo 'Running Flask Interface'
 	$(MAKE) run -C interface
@@ -36,6 +36,8 @@ populate:
 test:
 	@echo 'Checking for pep8'
 	@find $(ROOT_DIR) -name "*.py" | xargs pep8
+	@echo 'Testing Api'
+	$(MAKE) test -C api
 
 # Compiles interface scss and jade
 compile:
