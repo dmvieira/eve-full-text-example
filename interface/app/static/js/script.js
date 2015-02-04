@@ -50,9 +50,8 @@ $(function() {
   .done(function( data ) {
       var objects = JSON.parse(data);
       $('#search-results').html('<h1>Results for '+$("#search-input").val()+'</h1>');
-      console.log(objects);
-      for (i = 0; i < objects.length; i++){
-          $('#search-results').html($('#search-results').html()+gen_new_result(objects[i]));
+      for (i = 0; i < objects.result.length; i++){
+          $('#search-results').html($('#search-results').html()+gen_new_result(objects.result[i]));
       }
     })
 

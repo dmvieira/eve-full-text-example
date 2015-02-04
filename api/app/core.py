@@ -24,7 +24,7 @@ class Home(restful.Resource):
     def get(self):
         """ This API only implement GET method. """
 
-        return json.dumps(['Please use /city or /hotel'])
+        return 'Please use /city or /hotel'
 
 # Mapping url to Home
 api.add_resource(Home, '/')
@@ -70,7 +70,7 @@ class Hotel(restful.Resource):
         if city_name:
             query['city'] = city_name
             result = hotel.find(query)
-        return json.dumps([r for r in result])
+        return json.dumps(dict(result=[r for r in result], ok=1.0))
 
 # Mapping url to Hotel
 api.add_resource(Hotel, '/hotel')
