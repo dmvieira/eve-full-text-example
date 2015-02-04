@@ -1,6 +1,7 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*- #
 
-""" This file enable database populate using HU scrapper.
+""" This file enables database populate using HU scrapper.
 Here it connects to HU website and import some items to
 mongodb database.
 """
@@ -19,6 +20,7 @@ scraper = BeautifulScraper()
 # Setting constants from config file and environment
 HOTEL_FIELDS = config.options('hotel_fields')
 MAXCONNECTIONS = config.getint('default', 'maxconnections')
+URL_SCRAP = config.get('default', 'url_scrap')
 MAXPAGES = config.getint('default', 'maxpages') + 1
 MONGO_HOST = os.environ['MONGO_HOST']
 MONGO_PORT = os.environ['MONGO_PORT']
@@ -63,7 +65,7 @@ fields = dict()
 
 # Do scrapping
 for num in xrange(1, MAXPAGES):
-    url = 'http://www.hotelurbano.com/hoteis/x/%s' % num
+    url = '%s/%s' % (URL_SCRAP, num)
     body = scraper.go(url)
     city = body.select('.marinho strong')
     if len(city) == 4:
@@ -74,6 +76,6 @@ for num in xrange(1, MAXPAGES):
         fields[HOTEL_FIELDS[index]] = hotel.string
         if index == len(HOTEL_FIELDS) - 1:
             db.hotel.insert(fields)
-            del fields['_id'] # removing id added to fields by mongodb
+            del fields['_id']  # removing id added to fields by mongodb
 
     fields = reset_fields(fields)

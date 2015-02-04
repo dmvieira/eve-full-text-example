@@ -34,7 +34,8 @@ populate:
 	$(MAKE) run -C populate	
 
 test:
-	@echo 'doing'
+	@echo 'Checking for pep8'
+	@find $(ROOT_DIR) -name "*.py" | xargs pep8
 
 # Compiles interface scss and jade
 compile:

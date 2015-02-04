@@ -38,6 +38,7 @@ class BaseModel(object):
         with self.__context:
             self.__collection = self.database.db[value]
 
+
 class HotelModel(BaseModel):
     """ Defines hotel model for mongodb. """
     def __init__(self, database):
