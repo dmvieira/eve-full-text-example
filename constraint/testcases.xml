@@ -1,0 +1,34 @@
+
+<testcases>
+
+    <case>
+        <url>http://localhost:8000</url>
+    </case>
+     <case>
+        <url>http://localhost:5000/city?name=a</url>
+    </case>
+    <case>
+        <url>http://localhost:5000/hotel?city_name=Arenal</url>
+    </case>
+    <case>
+        <url>http://localhost:5000/city?name=p</url>
+    </case>
+    <case>
+        <url>http://localhost:5000/city?name=e</url>
+    </case>
+    <case>
+        <url>http://localhost:5000/</url>
+    </case>
+    <case>
+        <url>http://localhost:5000/city</url>
+    </case>
+    <case>
+        <url>http://localhost:5000/hotel</url>
+    </case>
+    <case>
+        <url>http://localhost:5000/city?name=</url>
+    </case>
+    <case>
+        <url>http://localhost:5000/hotel?city_name=</url>
+    </case>
+</testcases>

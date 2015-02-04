@@ -44,7 +44,6 @@ class HotelModel(BaseModel):
         """ Define structure and collection name for this model in mongodb.
         Collection is used to declare model as variable below.
         :param database: receives database and passes to BaseModel
-        :return:
         """
         super(HotelModel, self).__init__(database)
         self.structure = {
