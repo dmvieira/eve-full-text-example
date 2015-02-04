@@ -59,6 +59,11 @@ class TestApi(unittest.TestCase):
 
         self.assertEqual(response.status_code, 404, "Failed in status code")
 
+        # validates for vars
+        response = self.app.get('/?test_var=1')
+
+        self.assertEqual(response.status_code, 200, "Failed in status code")
+
     def test_hotel_get_call(self):
         """ Hotel API tests. If return nothing then we get an dict with ok
         and empty result. """
@@ -94,6 +99,11 @@ class TestApi(unittest.TestCase):
 
         self.assertEqual(response, dict(ok=1.0,
                                         result=[]))
+
+        # validates for args in hotel
+        response = self.app.get('/hotel/test')
+
+        self.assertEqual(response.status_code, 404, "Failed in status code")
 
     def test_city_get_call(self):
         """ City API tests. If return nothing then we get an dict with ok
@@ -153,6 +163,11 @@ class TestApi(unittest.TestCase):
 
         self.assertEqual(response, dict(ok=1.0,
                                         result=[]))
+
+        # validates for args in city
+        response = self.app.get('/city/test')
+
+        self.assertEqual(response.status_code, 404, "Failed in status code")
 
 if __name__ == '__main__':
     unittest.main()

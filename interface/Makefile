@@ -7,7 +7,7 @@ CSS_DIR=$(ROOT_DIR)/interface/app/static/css
 JADE_DIR=$(ROOT_DIR)/interface/app/assets/jade
 HTML_DIR=$(ROOT_DIR)/interface/app/templates
 
-.PHONY: all run compile
+.PHONY: all run compile test
 
 # If you call make it just calls make run
 all:
@@ -23,3 +23,8 @@ run:
 	$(MAKE) compile
 	python $(ROOT_DIR)/interface/run.py > interface.log 2>&1 &
 	@echo 'Flask Interface running!'
+
+# Runs tests for interface
+test:
+	python $(ROOT_DIR)/interface/tests.py > interface_test.log 2>&1 &
+	

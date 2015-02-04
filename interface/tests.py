@@ -26,10 +26,29 @@ class TestInterface(unittest.TestCase):
         """ Simple tests for index page.
         """
 
-        # analyze root
-        response = self.json_call('/', need_eval=False)
+        # analyze root 2 times
+        response = self.app.get('/')
 
-        self.assertEqual(response, 'Please use /city or /hotel')
+        self.assertEqual(response.status_code, 200, "Failed in status code")
+
+        response = self.app.get('/index')
+
+        self.assertEqual(response.status_code, 200, "Failed in status code")
+
+        # validates for vars
+        response = self.app.get('/?test_var=1')
+
+        self.assertEqual(response.status_code, 200, "Failed in status code")
+
+        # validates for vars in index
+        response = self.app.get('/index?test_var=1')
+
+        self.assertEqual(response.status_code, 200, "Failed in status code")
+
+        # validates for args in index
+        response = self.app.get('/index/test')
+
+        self.assertEqual(response.status_code, 404, "Failed in status code")
 
         # verify if no other resource are visible
         response = self.app.get('/globo', content_type='application/json')

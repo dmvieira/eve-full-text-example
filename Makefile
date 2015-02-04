@@ -33,11 +33,13 @@ populate:
 	$(MAKE) database_restart &
 	$(MAKE) run -C populate	
 
+# Run tests for pep8, API and Interface
 test:
 	@echo 'Checking for pep8'
 	@find $(ROOT_DIR) -name "*.py" | xargs pep8
 	@echo 'Testing Api'
 	$(MAKE) test -C api
+	$(MAKE) test -C interface
 
 # Compiles interface scss and jade
 compile:
