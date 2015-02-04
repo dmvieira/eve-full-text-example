@@ -5,10 +5,9 @@
 mapping and actions.
 """
 
-import json
 import re
-from bson import json_util
-from flask import request
+from bson import json_util as json
+from flask import request, jsonify
 from flask.ext import restful, cors
 from model import hotel
 from app import app
@@ -25,7 +24,7 @@ class Home(restful.Resource):
     def get(self):
         """ This API only implement GET method. """
 
-        return json.dumps(['Please use /city or /hotel'])
+        return 'Please use /city or /hotel'
 
 # Mapping url to Home
 api.add_resource(Home, '/')
@@ -50,7 +49,7 @@ class City(restful.Resource):
             ]
             result = hotel.aggregate(aggregate)
 
-        return json.dumps(result['result'], default=json_util.default)
+        return jsonify(result)
 
 # Mapping url to City
 api.add_resource(City, '/city')
@@ -62,15 +61,16 @@ class Hotel(restful.Resource):
         """ GET from REST. Used to get hotels by city name. It's useful for
         search hotels by city. If you don't set city name it returns
         an empty json.
-        :return: Hotels in json format.
+        :return: Hotels in json format, but mongodb is returning unicode, so I
+        need to use bson utils and return as json string.
         """
         city_name = request.args.get("city_name")
         query = dict()
-        result = dict(ok=1.0, result=[])
+        result = dict()
         if city_name:
             query['city'] = city_name
             result = hotel.find(query)
-        return json.dumps([item for item in result], default=json_util.default)
+        return json.dumps(dict(result=[r for r in result], ok=1.0))
 
 # Mapping url to Hotel
 api.add_resource(Hotel, '/hotel')
