@@ -4,6 +4,8 @@
 import os
 from app import app
 
+# Declare mongodb environment variables
+
 app.config['MONGO_HOST'] = os.environ.get('MONGO_HOST')
 app.config['MONGO_PORT'] = os.environ.get('MONGO_PORT')
 app.config['MONGO_USERNAME'] = os.environ.get('MONGO_USERNAME')
