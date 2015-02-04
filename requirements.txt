@@ -1,17 +1,23 @@
-# Requirements for api and simple flask app
-Cerberus==0.8
-Eve==0.5.1
 Events==0.2.1
 Flask==0.10.1
+Flask-Bootstrap==3.3.0.1
+Flask-Cors==1.10.2
 Flask-PyMongo==0.3.0
+Flask-RESTful==0.3.1
+Flask-Scss==0.3
 Jinja2==2.7.3
 MarkupSafe==0.23
-Werkzeug==0.9.6
-itsdangerous==0.24
-pymongo==2.8
-simplejson==3.6.5
-
-# Requirements for tester and crawler
+Werkzeug==0.10.1
+aniso8601==0.92
 beautifulscraper==1.0.3
 beautifulsoup4==4.3.2
-
+enum34==1.0.4
+itsdangerous==0.24
+pathlib==1.0.1
+pep8==1.5.7
+pyScss==1.3.4
+pyjade==3.0.0
+pymongo==2.8
+pytz==2014.10
+simplejson==3.6.5
+six==1.9.0
