@@ -6,6 +6,22 @@
 # and adds environment variables for db connection if needs.
 # Each process will be described below.
 
+
+# function to export env_vars to env_vars.mk file. 
+# If the variable is not defined, then request to user as input
+function export_env_vars {
+    # $1 = env var name
+    # $2 = default value
+    if [ ${!1} ]; then
+        tmp_var=${!1};
+    else
+        read -p "Set $1 (default: $2): " tmp_var;
+        tmp_var=${tmp_var:-$2};
+    fi
+    echo "export $1=${tmp_var}" >> env_vars.mk;
+
+}
+
 # Easy version control for MongoDB
 MONGODB_VERSION="x86_64-2.6.7";
 MY_PATH="$(pwd)";
@@ -48,43 +64,19 @@ mkdir -p ${MY_PATH}/mongodb/data/db/;
 
 # Reading mongodb env vars. It's only supporting localhost
 # If variable is already setted, then don't ask.
-if [ $MONGO_HOST ]; then
-    mongodb_host=$MONGO_HOST;
-else
-    read -p 'Set MongoDB hostname (default: localhost): ' mongodb_host;
-    mongodb_host=${mongodb_host:-localhost};
-fi
-if [ $MONGO_PORT ]; then
-    mongodb_port=$MONGO_PORT;
-else
-    read -p 'Set MongoDB port (default: 27017): ' mongodb_port;
-    mongodb_port=${mongodb_port:-27017};
-fi
-if [ $MONGO_USERNAME ]; then
-    mongodb_user=$MONGO_USERNAME;
-else
-    read -p 'Set MongoDB username (default: mongouser): ' mongodb_user;
-    mongodb_user=${mongodb_user:-mongouser};
-fi
-if [ $MONGO_PASSWORD ]; then
-    mongodb_pass=$MONGO_PASSWORD;
-else
-    read -p 'Set MongoDB password (default: 123): ' mongodb_pass;
-    mongodb_pass=${mongodb_pass:-123};
-fi
-if [ $MONGO_DBNAME ]; then
-    mongodb_db=$MONGO_DBNAME;
-else
-    read -p 'Set MongoDB database name (default: hu): ' mongodb_db;
-    mongodb_db=${mongodb_db:-hu};
-fi
 
-# Adding env vars to file
-echo "export MONGO_HOST=${mongodb_host}" >> env_vars.mk;
-echo "export MONGO_PORT=${mongodb_port}" >> env_vars.mk;
-echo "export MONGO_USERNAME=${mongodb_user}" >> env_vars.mk;
-echo "export MONGO_PASSWORD=${mongodb_pass}" >> env_vars.mk;
-echo "export MONGO_DBNAME=${mongodb_db}" >> env_vars.mk;
+export_env_vars MONGO_HOST localhost;
+export_env_vars MONGO_PORT 27017;
+export_env_vars MONGO_USERNAME mongouser;
+export_env_vars MONGO_PASSWORD 123;
+export_env_vars MONGO_DBNAME hu;
+
+
+# Configuring api and interface ports
+echo "API and Interface should use different ports."
+export_env_vars API_PORT 5000;
+export_env_vars INTERFACE_PORT 8000;
+
 
 # Installing pip requirements. You should use a virtualenv
 echo "Installing pip requirements"

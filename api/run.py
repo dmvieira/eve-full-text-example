@@ -1,9 +1,12 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*- #
 
-# Runs api using settings configuration and database schema from other files.
+# Runs api using settings configuration from other files.
 
-from eve import Eve
-app = Eve()
+import os
+from app import app
+
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True,
+            port=int(os.environ.get('API_PORT')))

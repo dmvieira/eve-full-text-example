@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
-"""
-This file enable database populate using HU scrapper.
+""" This file enable database populate using HU scrapper.
 Here it connects to HU website and import some items to
 mongodb database.
 """
@@ -13,7 +12,7 @@ import time
 import ConfigParser
 
 config = ConfigParser.RawConfigParser()
-config.read(os.path.join(os.environ['ROOT_DIR'], 'config', 'populate.cfg'))
+config.read(os.path.join(os.environ['ROOT_DIR'], 'populate', 'populate.cfg'))
 
 scraper = BeautifulScraper()
 
@@ -40,7 +39,8 @@ for i in xrange(MAXCONNECTIONS):
 try:
     client
 except NameError:
-    raise "Try improve maxconnections and check mongodb connection variables"
+    raise Exception("Try improve maxconnections and check "
+                    "mongodb connection variables")
 
 # Connect to mongodb and remove all data from hotel (if exists)
 db = client[MONGO_DBNAME]

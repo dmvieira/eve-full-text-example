@@ -14,3 +14,11 @@ mongodb.tgz
 # Environment vars
 env_vars.mk
 
+# Pycharm
+.idea/
+
+# Jade
+*.html
+
+# SCSS
+*.css
