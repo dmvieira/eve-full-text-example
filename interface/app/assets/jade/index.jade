@@ -21,10 +21,14 @@ div.container
             div.form-group.col-xs-12
                 div.col-xs-10
                     input#search-input.form-control(name='search_input',
+                                                    placeholder='Digite a cidade de destino',
                                                     type='text')
-                    div#search-suggestions
+                    div#search-box.col-xs-12
+                        div#search-suggestions
                 div.col-xs-2
                     button.btn.btn-default.glyphicon.glyphicon-search(type='submit')
+    div#search-results.col-sm-6.col-sm-offset-3.col-xs-12.col-xs-offset-0
+
 | {% endblock %}
 | {% block head %}
 | {{super()}}

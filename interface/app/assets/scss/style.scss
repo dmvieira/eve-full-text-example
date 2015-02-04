@@ -15,18 +15,25 @@
         margin-top: 10px;
         height: 43px;
     }
-    #search-suggestions {
-        overflow: auto;
-        background-color: #000000;
-        border: 1px;
+    #search-box {
+        z-index: 10;
+        position: absolute;
+        padding-left: 0;
+        padding-right: 30px;
 
-        li {
-            text-align: center;
-            list-style: none;
-            background-color: #FFFFFF;
-        } :hover {
+        #search-suggestions {
+            overflow: auto;
+            background-color: #000000;
+
+            li {
+                text-align: center;
+                list-style: none;
+                background-color: #FFFFFF;
+            }
+            :hover {
                 background-color: #00b4f0;
                 cursor: pointer;
             }
+        }
     }
 }
