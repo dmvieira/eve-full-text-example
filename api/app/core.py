@@ -9,8 +9,7 @@ import json
 import re
 from bson import json_util
 from flask import request
-from flask.ext import restful
-from flask.ext.cors import CORS
+from flask.ext import restful, cors
 from model import hotel
 from app import app
 
@@ -18,7 +17,7 @@ from app import app
 api = restful.Api(app)
 
 # Enable CORS
-cors = CORS(app)
+cors = cors.CORS(app)
 
 class Home(restful.Resource):
     """ Home resource to help users with a simple 'how to use'. """

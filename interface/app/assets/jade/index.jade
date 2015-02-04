@@ -10,7 +10,6 @@ script.
     var city_url = '{{ city_url }}';
     var hotel_url = '{{ hotel_url }}';
 | {{super()}}
-script(src="{{url_for('.static', filename='js/magicsuggest-min.js')}}")
 script(src="{{url_for('.static', filename='js/script.js')}}")
 | {% endblock %}
 | {% block content %}
@@ -22,8 +21,8 @@ div.container
             div.form-group.col-xs-12
                 div.col-xs-10
                     input#search-input.form-control(name='search_input',
-                                                    placeholder='Digite a cidade de destino',
                                                     type='text')
+                    div#search-suggestions
                 div.col-xs-2
                     button.btn.btn-default.glyphicon.glyphicon-search(type='submit')
 | {% endblock %}

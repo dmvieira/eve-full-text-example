@@ -4,7 +4,7 @@
 #search-form {
     background-color: #003bb3;
     padding: 20px 0;
-
+    height: 110px;
     button {
         color: #FFFFFF;
         background-color: #FFA500;
@@ -14,5 +14,19 @@
     input {
         margin-top: 10px;
         height: 43px;
+    }
+    #search-suggestions {
+        overflow: auto;
+        background-color: #000000;
+        border: 1px;
+
+        li {
+            text-align: center;
+            list-style: none;
+            background-color: #FFFFFF;
+        } :hover {
+                background-color: #00b4f0;
+                cursor: pointer;
+            }
     }
 }
