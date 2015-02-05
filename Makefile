@@ -45,7 +45,8 @@ test:
 compile:
 	$(MAKE) compile -C interface
 
-# Remove MongoDB directory and uninstall all things
+# Remove MongoDB directory and env_vars
 uninstall:
 	- rm -rf $(MONGO_PATH)
 	- rm -f env_vars.mk
+	@echo "Uninstalled!"
