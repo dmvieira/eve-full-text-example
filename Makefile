@@ -1,4 +1,4 @@
-# Top-level Makefile for eve search example.
+# Top:-level Makefile for eve search example.
 # Populate database, run apps, test code, compile jade and scss and uninstall.
 
 ROOT_DIR = $(abspath ./)
@@ -15,12 +15,12 @@ all:
 # Restarts MongoDB using quiet mode
 database_restart:
 	@echo 'Running MongoDB...'
-	- mongod --shutdown --dbpath $(MONGO_PATH)/data/db/
-	mongod --bind_ip $(MONGO_HOST) --port $(MONGO_PORT) --dbpath $(MONGO_PATH)/data/db/ --quiet > mongod.log 2>&1
+	-mongod --shutdown --dbpath $(MONGO_PATH)/data/db/
+	mongod --bind_ip $(MONGO_HOST) --port $(MONGO_PORT) --dbpath $(MONGO_PATH)/data/db/ --quiet > mongod.log 2>&1 &
 
 # Runs database, api and interface
 run:
-	$(MAKE) database_restart &
+	$(MAKE) database_restart
 	@echo 'Running Api...'
 	$(MAKE) run -C api &
 	@echo 'Running Flask Interface'
@@ -30,7 +30,7 @@ run:
 # Runs MongoDB and populate database scrapping Hotel Urbano
 populate:
 	@echo 'Running mongo for populate'
-	$(MAKE) database_restart &
+	$(MAKE) database_restart
 	$(MAKE) run -C populate	
 
 # Run tests for pep8, API and Interface
@@ -47,6 +47,6 @@ compile:
 
 # Remove MongoDB directory and env_vars
 uninstall:
-	- rm -rf $(MONGO_PATH)
-	- rm -f env_vars.mk
+	-rm -rf $(MONGO_PATH)
+	-rm -f env_vars.mk
 	@echo "Uninstalled!"
