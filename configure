@@ -26,27 +26,28 @@ function export_env_vars {
 MONGODB_VERSION="x86_64-2.6.7";
 MY_PATH="$(pwd)";
 
-# Validates if is Ubuntu or Mac. 
+# Validates if is Ubuntu. 
 # It should work for all linux too, but it needs manual intervention.
-if [ $(uname -s) == 'Linux' ]; then
-    MONGODB_URL="http://downloads.mongodb.org/linux/mongodb-linux-${MONGODB_VERSION}.tgz";
-    if ! [ "$(which curl)" ] && ! [ "$(uname -a | grep Ubuntu)" ]; then        
-        echo 'Please install curl by hand for other linux. Only Ubuntu is full supported.';
-        exit 0;
-    elif ! [ "$(which curl)" ]; then
-        # Ubuntu don't have curl by default, so we should install it.
-        echo 'Installing curl in your Ubuntu';
-        sudo apt-get install curl -y;
-    fi
+MONGODB_URL="http://downloads.mongodb.org/linux/mongodb-linux-${MONGODB_VERSION}.tgz";
 
-elif [ $(uname -s) == 'Darwin' ]; then
-    MONGODB_URL="http://downloads.mongodb.org/osx/mongodb-osx-${MONGODB_VERSION}.tgz";
-else
-    echo 'Sorry, but your system is not supported by installer. Just Mac and Ubuntu are supported.';
+if ! [ "$(which curl)" ] && ! [ "$(uname -a | grep Ubuntu)" ]; then        
+    echo 'Please install curl by hand for other linux. Only Ubuntu is full supported.';
     exit 0;
+elif ! [ "$(which curl)" ]; then
+    # Ubuntu don't have curl by default, so we should install it.
+    echo 'Installing curl in your Ubuntu';
+    sudo apt-get install curl -y;
 fi
 
-# Now start mongodb installation and configuration.
+if ! [ "$(which pip)" ]; then
+    echo 'Installing pip';
+    curl --silent --show-error --retry 5 https://bootstrap.pypa.io/get-pip.py | python --user;
+    rm get-pip.py;
+fi
+
+# Now starts pip installation
+
+# Now starts mongodb installation and configuration.
 echo 'Reseting and Downloading MongoDB';
 rm -rf mongodb && rm -f mongodb.tgz || echo "First MongoDB install";
 curl -L $MONGODB_URL -o mongodb.tgz;
