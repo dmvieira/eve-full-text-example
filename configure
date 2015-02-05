@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Bash script for configuration at Ubuntu amd64 and Mac systems.
+# Bash script for configuration at Ubuntu amd64 systems.
 # Should work with all Linux distros. Here it installs curl if needs,
 # installs mongodb database, pip requirements, populates mongodb with hotels
 # and adds environment variables for db connection if needs.
@@ -43,9 +43,11 @@ fi
 if ! [ "$(which pip)" ]; then
     echo 'Installing pip';
     curl -O https://bootstrap.pypa.io/get-pip.py
-    sudo python get-pip.py;
+    python get-pip.py --user;
     rm get-pip.py;
 fi
+
+export PATH=$PATH:~/.local/bin
 
 # Now starts mongodb installation and configuration.
 echo 'Reseting and Downloading MongoDB';
@@ -81,7 +83,7 @@ export_env_vars INTERFACE_PORT 8000;
 
 # Installing pip requirements. You should use a virtualenv
 echo "Installing pip requirements"
-pip install -r requirements.txt;
+pip install -r requirements.txt --user;
 
 # Populating database
 echo "Populating database... Please wait"
