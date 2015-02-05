@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Bash script for configuration at Ubuntu amd64 systems.
+# Bash script for configuration at Ubuntu systems.
 # Should work with all Linux distros. Here it installs curl if needs,
 # installs mongodb database, pip requirements, populates mongodb with hotels
 # and adds environment variables for db connection if needs.
@@ -23,7 +23,7 @@ function export_env_vars {
 }
 
 # Easy version control for MongoDB
-MONGODB_VERSION="x86_64-2.6.7";
+MONGODB_VERSION="$(uname -p)-2.6.7";
 MY_PATH="$(pwd)";
 
 # Validates if is Ubuntu. 
