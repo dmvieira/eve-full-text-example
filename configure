@@ -39,12 +39,15 @@ elif ! [ "$(which curl)" ]; then
     sudo apt-get install curl -y;
 fi
 
-# Now starts pip installation
+# Now starts pip installation.
+# trick is used to install pip locally or in virtualenv
+TRICK='';
 if ! [ "$(which pip)" ]; then
     echo 'Installing pip';
     curl -O https://bootstrap.pypa.io/get-pip.py
     python get-pip.py --user;
     rm get-pip.py;
+    TRICK='--user';
 fi
 
 export PATH=$PATH:~/.local/bin
@@ -83,7 +86,7 @@ export_env_vars INTERFACE_PORT 8000;
 
 # Installing pip requirements. You should use a virtualenv
 echo "Installing pip requirements"
-pip install -r requirements.txt --user;
+pip install -r requirements.txt $TRICK;
 
 # Populating database
 echo "Populating database... Please wait"
