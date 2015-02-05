@@ -7,8 +7,11 @@ Text search example using hotel urbano database and Flask framework
 Just execute these commands:
 
     git clone https://github.com/dmvieira/text-search-example.git
+    cd text-search-example
     ./configure  # use bash
     make  # or make run (needs make installed)
+
+I suggest you to use in virtualenv these commands.
 
 These commands will configure your environment and start app. You need 
 to define environment variables during configure command if these 
