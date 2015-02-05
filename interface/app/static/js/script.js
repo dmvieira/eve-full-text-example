@@ -19,11 +19,14 @@ function gen_new_result(object){
 
 $(function() {
 
+    $('body').click(function(){
+         $('#search-suggestions').html('');
+    })
     // Monitoring search-input for each keyup
     // It's a simple autocomplete made because I had errors with mongodb _id
     $("#search-input").keyup(function() {
         $.getJSON(city_url + '?name=' + $(this).val(), function (data) {
-
+            $('#search-suggestions').html('');
             $.each(data['result'], function (key, val) {
                 $('#search-suggestions').html($('#search-suggestions').html() + gen_new_suggestion(val._id));
 
