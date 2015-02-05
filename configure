@@ -41,7 +41,8 @@ fi
 
 if ! [ "$(which pip)" ]; then
     echo 'Installing pip';
-    curl --silent --show-error --retry 5 https://bootstrap.pypa.io/get-pip.py | python --user;
+    curl -O https://bootstrap.pypa.io/get-pip.py
+    python get-pip --user;
     rm get-pip.py;
 fi
 
