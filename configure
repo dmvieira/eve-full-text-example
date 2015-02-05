@@ -39,14 +39,13 @@ elif ! [ "$(which curl)" ]; then
     sudo apt-get install curl -y;
 fi
 
+# Now starts pip installation
 if ! [ "$(which pip)" ]; then
     echo 'Installing pip';
     curl -O https://bootstrap.pypa.io/get-pip.py
     python get-pip.py --user;
     rm get-pip.py;
 fi
-
-# Now starts pip installation
 
 # Now starts mongodb installation and configuration.
 echo 'Reseting and Downloading MongoDB';
