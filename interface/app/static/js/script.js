@@ -19,6 +19,7 @@ function gen_new_result(object){
 
 $(function() {
 
+    // if click in body autocomplete closes
     $('body').click(function(){
          $('#search-suggestions').html('');
     })
